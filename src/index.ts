@@ -1,19 +1,16 @@
-import { Client } from "@notionhq/client";
 import dotenv from "dotenv";
+import { getCreighton } from "./get-creighton";
+import { getGospel } from "./get-gosptel";
+import { createNotionPage } from "./create-notion-page";
 
 dotenv.config();
 
-async function main() {
-  const notion = new Client({
-    auth: process.env.NOTION_TOKEN,
-  });
+const main = async () => {
+  const creighton = await getCreighton();
+  const gospel = await getGospel();
 
-  const response = await notion.databases.query({
-    database_id: "FIXME",
-  });
-
-  console.log("Got response:", response);
-}
+  await createNotionPage(creighton, gospel);
+};
 
 main()
   .then(() => process.exit(0))
