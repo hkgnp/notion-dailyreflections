@@ -12,7 +12,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
       - name: Release
         run: npx semantic-release
         env:
