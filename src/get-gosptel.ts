@@ -8,7 +8,9 @@ export const getGospel = async (): Promise<{
   reading: string;
   passage: string;
 }> => {
-  const url = `https://bible.usccb.org/bible/readings/${creightonGospelDate}.cfm`;
+  const url = `https://bible.usccb.org/bible/readings/${creightonGospelDate(
+    new Date(),
+  )}.cfm`;
   const bibleResponse = await axios.get(url);
   const text = convert(bibleResponse.data, {
     baseElements: {

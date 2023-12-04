@@ -7,7 +7,9 @@ export const getCreighton = async (): Promise<{
   url: string;
   reflections: string;
 }> => {
-  const url = `https://onlineministries.creighton.edu/CollaborativeMinistry/${creightonGospelDate}.html`;
+  const url = `https://onlineministries.creighton.edu/CollaborativeMinistry/${creightonGospelDate(
+    new Date(),
+  )}.html`;
   const response = await axios.get(url);
   const reflections = convert(response.data, {
     baseElements: { selectors: ["td.Reflection-text"] },

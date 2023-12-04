@@ -29,7 +29,7 @@ new CronJob(
   "Asia/Singapore",
 );
 
-// The below is for testing purposes
+//The below is for testing purposes
 // main()
 //   .then(() => process.exit(0))
 //   .catch((err) => {
