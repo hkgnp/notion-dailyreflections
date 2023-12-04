@@ -1,38 +1,41 @@
-# notion-sdk-typescript-starter
+# Overview
 
-This is a template repository for getting started with the [Notion SDK](https://github.com/makenotion/notion-sdk-js)
-and [TypeScript](https://www.typescriptlang.org/).
+A simple Docker container to automatically send daily reflections to Notion, using `cron` schedule expressions. Container is deployed to [Unraid](https://www.unraid.net).
 
-To use this template, click the big green "Use this template" button in the upper-right corner. After some questions,
-GitHub will create a new clone under your account, and then you can get started customizing.
+# Configuration
 
-## Features
+1. In `index.ts`, change the cron configuration to one of your choosing. For explanation on how cron works, visit [Crontab Guru](https://crontab.guru)
+2. Save the changes and push to docker hub. A sample of the bash script can be found below:
 
-- TypeScript for type checking.
-- [Prettier](https://prettier.io/) for code formatting.
-- A minimal GitHub Actions workflow that typechecks your code.
-- [Dotenv](https://www.npmjs.com/package/dotenv) for configuring your Notion API token.
-- [Dependabot](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates)
-  for ensuring your (and this template's!) dependencies are up to date.
-- Our lovely Notion SDK!
+```
+docker buildx build --platform=linux/amd64 -t notion-dailyreflections .
 
-## What to do after duplicating
+docker tag notion-dailyreflections your-name/notion-dailyreflections
 
-1. Make sure you've [created a Notion integration](https://developers.notion.com/docs/getting-started) and have a secret Notion token.
-2. Add your Notion token to a `.env` file at the root of this repository: `echo "NOTION_TOKEN=[your token here]" > .env`.
-3. Run `npm install`.
-4. Edit the `database_id` in `index.ts` from FIXME to be any database currently shared with your integration.
-5. Run `npm start` to run the script.
+docker push your-name/notion-dailyreflections
+```
 
-Now you can head over to our [developer documentation](https://developers.notion.com/) for more information on using the Notion API!
+3. Proceed to the deployment instructions below
 
-## NPM Scripts
+# Deployment Instructions
 
-This template has a few built-in NPM scripts:
+After making changes to the configuration, proceed with the below:
 
-| Script              | Action                                                                                                                                                                          |
-| - | - |
-| `npm start`         | Run `index.ts`.                                                                                                                                                                 |
-| `npm run typecheck` | Type check using the TypeScript compiler.                                                                                                                                       |
-| `npm run format`    | Format using Prettier (also recommended: the [Prettier VS Code extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) if you're using VS code.) |
-| `npm run build`     | Build JavaScript into the `dist/` directory. You normally shouldn't need this if you're using `npm start`.                                                                      |
+1. Go to Docker tab in Unraid
+2. Create a new container
+3. Repository should be set to `your-name/notion-dailyreflections` (based on your configuration above)
+
+- This assumes you have pushed your docker image to [Docker Hub](https://hub.docker.com)
+
+4. Change from Basic view to Advanced view
+5. Under `Extra Parameters`, add the below, and proceed to create the container.
+
+```bash
+--platform=linux/amd64 -e NOTION_TOKEN=XXX -e DATABASE_ID=XXX -e GOSPEL_API=XXX
+# Replace XXX with your Notion token, Notion Database ID and Gospel API from https://api.esv.org
+```
+
+# Credits
+
+- [Notion](https://www.notion.so)
+- [ESV API](https://api.esv.org)

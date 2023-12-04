@@ -25,7 +25,7 @@ export const getGospel = async (): Promise<{
       headers: {
         Authorization: `Token ${process.env.GOSPEL_API}`,
       },
-    }
+    },
   );
   return {
     url,
