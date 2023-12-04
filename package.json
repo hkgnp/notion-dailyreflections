@@ -1,15 +1,21 @@
 {
   "name": "notion-sdk-project",
-  "version": "1.0.0",
-  "description": "",
   "main": "dist/index.js",
-  "private": true,
   "scripts": {
     "start": "ts-node src/index.ts",
     "build": "tsc"
   },
-  "keywords": [],
-  "author": "",
+  "author": "hkgnp",
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer"
+      ]
+    ]
+  },
   "dependencies": {
     "@notionhq/client": "^2.2.13",
     "axios": "^1.6.2",
