@@ -37,4 +37,4 @@ new CronJob(
 //     process.exit(1);
 //   });
 
-console.log("Container running");
+console.log(`Container running on ${new Date()}`);
