@@ -4,7 +4,7 @@ A simple Docker container to automatically send daily reflections to Notion, usi
 
 # Configuration
 
-1. In `index.ts`, change the cron configuration to one of your choosing. For explanation on how cron works, visit [Crontab Guru](https://crontab.guru)
+1. In `index.ts`, change the cron configuration to one of your choosing. For explanation on how cron works, visit [Crontab Guru](https://crontab.guru). In the same file, make changes to the Timezone if necessary.
 2. Save the changes and push to docker hub. A sample of the bash script can be found below:
 
 ```
