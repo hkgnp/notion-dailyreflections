@@ -3,6 +3,7 @@ import { createEntry } from "./notion/create-entry";
 import { appendHeadings } from "./notion/append-headings";
 import { appendContent } from "./notion/append-content";
 import { sleep } from "./sleep";
+import { appendList } from "./notion/append-list";
 
 export const createNotionPage = async (
   creighton: { url: string; reflections: string },
@@ -30,6 +31,21 @@ export const createNotionPage = async (
     await appendHeadings(notion, parentId, "Creighton Reflections");
     sleep(2000);
     await appendContent(notion, parentId, creighton.reflections);
+    sleep(2000);
+    console.log("Writing Personal Reflections");
+    await appendHeadings(notion, parentId, "Personal Reflections");
+    sleep(2000);
+    await appendContent(
+      notion,
+      parentId,
+      "What is the most storyworthy moment yesterday",
+    );
+    sleep(2000);
+    await appendList(notion, parentId, "...");
+    sleep(2000);
+    await appendContent(notion, parentId, "What should I strive to do better");
+    sleep(2000);
+    await appendList(notion, parentId, "...");
   } catch (error) {
     console.error(error);
   }
