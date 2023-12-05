@@ -6,6 +6,7 @@
     "build": "tsc"
   },
   "author": "hkgnp",
+  "license": "ISC",
   "release": {
     "branches": [
       "main"
