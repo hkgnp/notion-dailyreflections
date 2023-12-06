@@ -38,6 +38,10 @@ export const createEntry = async (
         url: gospelUrl,
       },
     },
+    icon: {
+      type: "emoji",
+      emoji: "✝️",
+    },
   });
   return createdEntry.id;
 };
