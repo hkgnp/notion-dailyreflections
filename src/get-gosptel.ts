@@ -23,7 +23,7 @@ export const getGospel = async (): Promise<{
   if (!regex || !regex[1]) return { url: "", reading: "", passage: "" };
   const reading = regex[1].trim();
 
-  let passageResponse;
+  let passage;
   if (reading.includes(",")) {
     const author = reading.substring(0, 2);
     const readingArr = reading.substring(2).split(",");
@@ -37,12 +37,12 @@ export const getGospel = async (): Promise<{
           },
         },
       );
-      passageArr.push(reading);
+      passageArr.push(reading.data.passages[0]);
       sleep(2000);
     }
-    passageResponse = passageArr.join(" ");
+    passage = passageArr.join(" ");
   } else {
-    passageResponse = await axios.get(
+    const passageResponse = await axios.get(
       `https://api.esv.org/v3/passage/text/?q=${reading}`,
       {
         headers: {
@@ -50,11 +50,12 @@ export const getGospel = async (): Promise<{
         },
       },
     );
+    passage = passageResponse.data.passages[0];
   }
 
   return {
     url,
     reading,
-    passage: passageResponse.data.passages[0],
+    passage,
   };
 };
