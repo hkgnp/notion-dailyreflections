@@ -1,6 +1,7 @@
 import axios from "axios";
 import { convert } from "html-to-text";
 import { creightonGospelDate } from "./get-date";
+import { sleep } from "./sleep";
 
 // Get Gospel in a string
 export const getGospel = async (): Promise<{
@@ -21,14 +22,36 @@ export const getGospel = async (): Promise<{
   const regex = /GOSPEL\n\n(.*?)\[/g.exec(text);
   if (!regex || !regex[1]) return { url: "", reading: "", passage: "" };
   const reading = regex[1].trim();
-  const passageResponse = await axios.get(
-    `https://api.esv.org/v3/passage/text/?q=${reading}`,
-    {
-      headers: {
-        Authorization: `Token ${process.env.GOSPEL_API}`,
+
+  let passageResponse;
+  if (reading.includes(",")) {
+    const author = reading.substring(0, 2);
+    const readingArr = reading.substring(2).split(",");
+    const passageArr = [];
+    for (const r of readingArr) {
+      const reading = await axios.get(
+        `https://api.esv.org/v3/passage/text/?q=${author}${r}`,
+        {
+          headers: {
+            Authorization: `Token ${process.env.GOSPEL_API}`,
+          },
+        },
+      );
+      passageArr.push(reading);
+      sleep(2000);
+    }
+    passageResponse = passageArr.join(" ");
+  } else {
+    passageResponse = await axios.get(
+      `https://api.esv.org/v3/passage/text/?q=${reading}`,
+      {
+        headers: {
+          Authorization: `Token ${process.env.GOSPEL_API}`,
+        },
       },
-    },
-  );
+    );
+  }
+
   return {
     url,
     reading,
