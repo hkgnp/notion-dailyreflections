@@ -26,11 +26,13 @@ export const getGospel = async (): Promise<{
   let passage;
   if (reading.includes(",")) {
     const author = reading.substring(0, 2);
-    const readingArr = reading.substring(2).split(",");
+    const chapter = reading.substring(2, reading.indexOf(":"));
+    const readingArr = reading.substring(reading.indexOf(":") + 1).split(",");
+
     const passageArr = [];
     for (const r of readingArr) {
       const reading = await axios.get(
-        `https://api.esv.org/v3/passage/text/?q=${author}${r}`,
+        `https://api.esv.org/v3/passage/text/?q=${author} ${chapter}:${r}`,
         {
           headers: {
             Authorization: `Token ${process.env.GOSPEL_API}`,
