@@ -13,8 +13,8 @@ const main = async () => {
 };
 
 new CronJob(
-  "0 6 * * *",
-  async function () {
+  "0 5 * * *",
+  async function() {
     try {
       console.log(`Executing script at ${new Date().toLocaleString()}`);
       await main();
