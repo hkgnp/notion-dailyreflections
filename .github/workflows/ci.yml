@@ -9,8 +9,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "21.*"
       - uses: actions/checkout@v3
       - name: Release
         run: npx semantic-release

@@ -7,7 +7,7 @@
     "test": "vitest"
   },
   "author": "hkgnp",
-  "license": "ISC",
+  "license": "MIT",
   "release": {
     "branches": [
       "main"
